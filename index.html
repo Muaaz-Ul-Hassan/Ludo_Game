@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ludo Game - Traditional Board Game</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎲</text></svg>">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-dice"></i> Luddo Game</h1>
+            <p class="subtitle">The Classic Board Game - Roll the dice and race your tokens to home!</p>
+        </header>
 
+        <div class="game-area">
+            <div class="game-info">
+                <div class="player-turn">
+                    <h3>Current Turn: <span id="current-player">Player 1</span></h3>
+                    <div class="player-color-indicator" id="current-player-color"></div>
+                </div>
+                
+                <div class="dice-container">
+                    <div class="dice" id="dice">
+                        <div class="dice-face">
+                            <div class="dot center"></div>
+                        </div>
+                    </div>
+                    <button id="roll-dice" class="btn roll-btn">
+                        <i class="fas fa-dice"></i> Roll Dice
+                    </button>
+                    <div class="dice-result">
+                        <p>Last Roll: <span id="dice-value">0</span></p>
+                    </div>
+                </div>
+
+                <div class="game-controls">
+                    <button id="new-game" class="btn new-game-btn">
+                        <i class="fas fa-gamepad"></i> New Game
+                    </button>
+                    <button id="rules-btn" class="btn rules-btn">
+                        <i class="fas fa-book"></i> Game Rules
+                    </button>
+                </div>
+            </div>
+
+            <div class="board-container">
+                <div class="board" id="board">
+                    <!-- Board will be generated with JavaScript -->
+                </div>
+                
+                <div class="players-info">
+                    <div class="player player-1 active" data-player="1">
+                        <h4><i class="fas fa-user"></i> Player 1 (Red)</h4>
+                        <div class="tokens">
+                            <div class="token red" data-token="1">1</div>
+                            <div class="token red" data-token="2">2</div>
+                            <div class="token red" data-token="3">3</div>
+                            <div class="token red" data-token="4">4</div>
+                        </div>
+                        <p class="status">Status: <span>Waiting for turn</span></p>
+                    </div>
+                    
+                    <div class="player player-2" data-player="2">
+                        <h4><i class="fas fa-user"></i> Player 2 (Green)</h4>
+                        <div class="tokens">
+                            <div class="token green" data-token="1">1</div>
+                            <div class="token green" data-token="2">2</div>
+                            <div class="token green" data-token="3">3</div>
+                            <div class="token green" data-token="4">4</div>
+                        </div>
+                        <p class="status">Status: <span>Waiting for turn</span></p>
+                    </div>
+                    
+                    <div class="player player-3" data-player="3">
+                        <h4><i class="fas fa-user"></i> Player 3 (Yellow)</h4>
+                        <div class="tokens">
+                            <div class="token yellow" data-token="1">1</div>
+                            <div class="token yellow" data-token="2">2</div>
+                            <div class="token yellow" data-token="3">3</div>
+                            <div class="token yellow" data-token="4">4</div>
+                        </div>
+                        <p class="status">Status: <span>Waiting for turn</span></p>
+                    </div>
+                    
+                    <div class="player player-4" data-player="4">
+                        <h4><i class="fas fa-user"></i> Player 4 (Blue)</h4>
+                        <div class="tokens">
+                            <div class="token blue" data-token="1">1</div>
+                            <div class="token blue" data-token="2">2</div>
+                            <div class="token blue" data-token="3">3</div>
+                            <div class="token blue" data-token="4">4</div>
+                        </div>
+                        <p class="status">Status: <span>Waiting for turn</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="game-messages">
+            <div id="message-area">
+                <p>Welcome to Ludo! Player 1 starts the game. Roll the dice to begin!</p>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3><i class="fas fa-info-circle"></i> How to Play</h3>
+            <ul>
+                <li>Players take turns rolling the dice.</li>
+                <li>Roll a 6 to unlock a token from home and get an extra turn.</li>
+                <li>Move your tokens clockwise around the board.</li>
+                <li>Land on an opponent's token to send it back to home.</li>
+                <li>First player to get all 4 tokens to the center wins!</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Rules Modal -->
+    <div id="rules-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-book"></i> Ludo Game Rules</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="rules-section">
+                    <h3>Objective</h3>
+                    <p>Be the first player to move all four of your tokens from your starting area, around the board, and into your home triangle.</p>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Setup</h3>
+                    <p>Each player chooses a color (Red, Green, Yellow, or Blue) and places their 4 tokens in their respective starting area.</p>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Gameplay</h3>
+                    <ul>
+                        <li>Players take turns rolling a single die.</li>
+                        <li>To enter a token into play from its starting area, a player must roll a 6.</li>
+                        <li>If a player rolls a 6, they get an extra turn after moving a token.</li>
+                        <li>Tokens move clockwise around the board the number of spaces shown on the die.</li>
+                        <li>If a token lands on a space occupied by an opponent's token, the opponent's token is sent back to its starting area.</li>
+                        <li>Tokens on safe spaces (marked with a star) cannot be captured.</li>
+                        <li>When a token has completed a full circuit of the board, it proceeds up the home column of its own color.</li>
+                    </ul>
+                </div>
+                
+                <div class="rules-section">
+                    <h3>Winning</h3>
+                    <p>The first player to get all four of their tokens into their home triangle wins the game!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Luddo Game | Created for GitHub Upload | <span id="year"></span></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
